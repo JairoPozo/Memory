@@ -19,6 +19,12 @@ html{
     display: grid;
     justify-items: center;
     grid-template-columns: repeat(4,1fr);
-    grid-template-rows: repeat(5,1fr);
+    grid-template-rows: repeat(6,1fr);
     gap: 10px;
+}
+
+.card{
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: contain;
 }
