@@ -68,7 +68,8 @@ function dealCards(card,cover,level){
     card.style.display="none";
 }
 function clearBoard(level){
-    if(level>1){
+    const test_card =  document.getElementById('card');
+    if(level>1 && test_card!=null){
         for (let index = 0; index < ((level*2)-2); index++) {
             const card =  document.getElementById('card');
             const cover =  document.getElementById('cover');

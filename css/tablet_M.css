@@ -1,0 +1,8 @@
+.card,.cover{
+    height: 105px;
+    max-width: 80px;
+}
+
+.game{
+    max-width: 550px;
+}

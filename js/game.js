@@ -1,11 +1,45 @@
-'use strict'
 import dealCards from './dealCards.js';
 const start = document.getElementById("game-start");
 const board  = document.getElementById('game-board');
 const test = document.getElementById('game-test');
 let cards = document.getElementsByClassName("card");
 let covers = document.getElementsByClassName("cover");
-
+const main = document.getElementById('game');
+const bar = document.getElementById('game-bar');
+let watch = document.createElement('h3');
+let totalErrors = document.createElement('h3');
+watch.className="stopwatch";
+totalErrors.className="errors";
+let s = 0;
+let m = 0;
+let h = 0;
+let errors = 0;
+function createMesaje(type){
+let message = document.createElement('div');
+let titleMessage = document.createElement('h2');
+let textMessage = document.createElement('p');
+switch (type) {
+    case 'error':
+        message.className = 'message';
+        titleMessage.innerText='Error';
+        textMessage.innerText='The cards are not equal';
+        message.appendChild(titleMessage);
+        message.appendChild(textMessage);
+        main.appendChild(message);
+        break;
+    case 'levelup':
+        message.className = 'message'
+        titleMessage.innerText='Level up';
+        textMessage.innerText='Congratulations!';
+        message.appendChild(titleMessage);
+        message.appendChild(textMessage);
+        main.appendChild(message);
+        break;
+    }
+    setTimeout(()=>{
+        message.style.display="none";
+    },800);
+}
 
 function activeClick(){
     for (let i = 0; i < covers.length; i++) {
@@ -24,6 +58,9 @@ function pairs (num1,num2,cover1,card1,cover2,card2){
         return true;
     }
     else{
+        errors++;
+        totalErrors.innerText=`Errors : ${errors}`;
+        createMesaje('error');
         card1.style.display='none';
         card2.style.display='none';
         cover1.style.display='block';
@@ -39,9 +76,16 @@ function game(memoryGame){
     let tempCards = [];
     if(memoryGame.getLevel()==memoryGame.getLevelMax()){
         alert("Juego Completado!")
+        bar.style.display = 'none';
         memoryGame.resetGame();
         start.style.display = 'inline-block';
         test.style.display='none';
+        errors = 0;
+        totalErrors.innerText=``;
+        s = 0;
+        m = 0;
+        h = 0;
+        startGame();
     }
     else{
         for (let index = 0; index < covers.length; index++) {
@@ -60,6 +104,7 @@ function game(memoryGame){
                         if(arePairs===true){
                             correct+=2
                             if(cards.length===correct){
+                                createMesaje('levelup')
                                 memoryGame.nextLevel();
                                 cards = document.getElementsByClassName("card");
                                 covers = document.getElementsByClassName("cover");
@@ -73,11 +118,47 @@ function game(memoryGame){
         }
     }
 }
-
+function stopwatch(){
+        let second;
+        let minute;
+        let hour;
+        if(s>=59){
+            m++;
+            s=0;
+        }
+        s++;
+        if(m>=59){
+            h++;
+            m=0;
+        }
+        if(s<10){
+            second = '0'+s;
+        }
+        else{
+            second = s;
+        }
+        if(m<10){
+            minute = '0'+m;
+        }
+        else{
+            minute = m;
+        }
+        if(h<10){
+            hour = '0'+h;
+        }
+        else{
+            hour = h;
+        }
+        watch.innerText= `Time: ${hour}:${minute}:${second}`;
+        bar.appendChild(watch);
+    }
 function startGame(){
     test.style.display='none';
     const memoryGame = dealCards(board);
     start.onclick = () => {
+        bar.style.display = 'flex'
+        setInterval(stopwatch,1000);
+        bar.appendChild(totalErrors);
         start.style.display = 'none';
         test.style.display='inline-block';
         memoryGame.nextLevel();
