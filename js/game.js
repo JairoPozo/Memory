@@ -7,6 +7,18 @@ let cards = document.getElementsByClassName("card");
 let covers = document.getElementsByClassName("cover");
 
 
+function activeClick(){
+    for (let i = 0; i < covers.length; i++) {
+        covers[i].style.pointerEvents = 'auto';
+    }
+}
+
+function deactivateClick(){
+    for (let i = 0; i < covers.length; i++) {
+        covers[i].style.pointerEvents = 'none';
+    }
+}
+
 function pairs (num1,num2,cover1,card1,cover2,card2){
     if(num1 === num2){
         return true;
@@ -40,19 +52,22 @@ function game(memoryGame){
                 tempCovers.push(covers[index]);
                 tempCards.push(cards[index]);
                 if(attempts.length%2==0 && attempts.length!=0){
-                    let arePairs = pairs(attempts[0],attempts[1],tempCovers[0],tempCards[0],tempCovers[1],tempCards[1]);
-                    attempts=[];
-                    tempCards=[];
-                    tempCovers=[];
-                    if(arePairs===true){
-                        correct+=2
-                        if(cards.length===correct){
-                            memoryGame.nextLevel();
-                            cards = document.getElementsByClassName("card");
-                            covers = document.getElementsByClassName("cover");
-                            game(memoryGame);
+                    setTimeout(()=>{let arePairs = pairs(attempts[0],attempts[1],tempCovers[0],tempCards[0],tempCovers[1],tempCards[1]);
+                        activeClick();
+                        attempts=[];
+                        tempCards=[];
+                        tempCovers=[];
+                        if(arePairs===true){
+                            correct+=2
+                            if(cards.length===correct){
+                                memoryGame.nextLevel();
+                                cards = document.getElementsByClassName("card");
+                                covers = document.getElementsByClassName("cover");
+                                game(memoryGame);
+                            }
                         }
-                    }
+                    },1000);
+                    deactivateClick();
                 }
             });
         }
