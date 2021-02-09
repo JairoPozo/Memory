@@ -28,3 +28,6 @@ html{
     background-position:center;
     background-size: contain;
 }
+.cover{
+    background-color: rgb(44, 29, 29);
+}

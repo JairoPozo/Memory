@@ -1,4 +1,4 @@
-.card{
+.card,.cover{
     min-width: 130px;
     height: 80px;
     max-width: 160px;
