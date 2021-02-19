@@ -1,18 +1,18 @@
 'use strict';
 
 let icon_list = [
-"url('../assets/icon-card/christmas_icons-01.svg')",
-"url('../assets/icon-card/christmas_icons-02.svg')",
-"url('../assets/icon-card/christmas_icons-03.svg')",
-"url('../assets/icon-card/christmas_icons-04.svg')",
-"url('../assets/icon-card/christmas_icons-05.svg')",
-"url('../assets/icon-card/christmas_icons-06.svg')",
-"url('../assets/icon-card/christmas_icons-07.svg')",
-"url('../assets/icon-card/christmas_icons-08.svg')",
-"url('../assets/icon-card/christmas_icons-09.svg')",
-"url('../assets/icon-card/christmas_icons-10.svg')",
-"url('../assets/icon-card/christmas_icons-11.svg')",
-"url('../assets/icon-card/christmas_icons-12.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-01.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-02.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-03.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-04.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-05.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-06.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-07.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-08.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-09.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-10.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-11.svg')",
+"url('../Memory/assets/icon-card/christmas_icons-12.svg')",
 ];
 
 function createCard(){
