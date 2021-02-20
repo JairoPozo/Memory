@@ -4,46 +4,23 @@ const endMessage = document.getElementById("end-message");
 const playAgain = document.getElementById("play-again");
 const board  = document.getElementById('game-board');
 const test = document.getElementById('game-test');
-let cards = document.getElementsByClassName("card");
-let covers = document.getElementsByClassName("cover");
 const main = document.getElementById('game');
 const bar = document.getElementById('game-bar');
 const img = document.getElementById('game-img');
+
+let cards = document.getElementsByClassName("card");
+let covers = document.getElementsByClassName("cover");
 let watch = document.createElement('h3');
 let totalErrors = document.createElement('h3');
+
 watch.className="stopwatch";
 totalErrors.className="errors";
+
 var chronometer;
 let s = 0;
 let m = 0;
 let h = 0;
 let errors = 0;
-function createMesaje(type){
-let message = document.createElement('div');
-let titleMessage = document.createElement('h2');
-let textMessage = document.createElement('p');
-switch (type) {
-    case 'error':
-        message.className = 'message';
-        titleMessage.innerText='Error';
-        textMessage.innerText='The cards are not equal';
-        message.appendChild(titleMessage);
-        message.appendChild(textMessage);
-        main.appendChild(message);
-        break;
-    case 'levelup':
-        message.className = 'message'
-        titleMessage.innerText='Level up';
-        textMessage.innerText='Congratulations!';
-        message.appendChild(titleMessage);
-        message.appendChild(textMessage);
-        main.appendChild(message);
-        break;
-    }
-    setTimeout(()=>{
-        message.style.display="none";
-    },800);
-}
 
 function activeClick(){
     for (let i = 0; i < covers.length; i++) {
@@ -64,7 +41,6 @@ function pairs (num1,num2,cover1,card1,cover2,card2){
     else{
         errors++;
         totalErrors.innerText=`Errors : ${errors}`;
-        createMesaje('error');
         card1.style.display='none';
         card2.style.display='none';
         cover1.style.display='block';
@@ -93,9 +69,9 @@ function game(memoryGame){
             watch.innerText= `Time: 00:00:00`;
             chronometer = setInterval(stopwatch,1000);
             bar.style.display = 'flex'
-            bar.appendChild(totalErrors);
             test.style.display='inline-block';
             endMessage.style.display='none';
+            bar.appendChild(totalErrors);
             memoryGame.nextLevel();
             game(memoryGame);
         }
@@ -117,7 +93,6 @@ function game(memoryGame){
                         if(arePairs===true){
                             correct+=2
                             if(cards.length===correct){
-                                createMesaje('levelup')
                                 memoryGame.nextLevel();
                                 cards = document.getElementsByClassName("card");
                                 covers = document.getElementsByClassName("cover");
@@ -165,6 +140,7 @@ function stopwatch(){
         watch.innerText= `Time: ${hour}:${minute}:${second}`;
         bar.appendChild(watch);
     }
+
 function startGame(){
     test.style.display='none';
     const memoryGame = dealCards(board);
