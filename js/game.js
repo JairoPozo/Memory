@@ -1,15 +1,19 @@
 import dealCards from './dealCards.js';
 const start = document.getElementById("game-start");
+const endMessage = document.getElementById("end-message");
+const playAgain = document.getElementById("play-again");
 const board  = document.getElementById('game-board');
 const test = document.getElementById('game-test');
 let cards = document.getElementsByClassName("card");
 let covers = document.getElementsByClassName("cover");
 const main = document.getElementById('game');
 const bar = document.getElementById('game-bar');
+const img = document.getElementById('game-img');
 let watch = document.createElement('h3');
 let totalErrors = document.createElement('h3');
 watch.className="stopwatch";
 totalErrors.className="errors";
+var chronometer;
 let s = 0;
 let m = 0;
 let h = 0;
@@ -75,17 +79,26 @@ function game(memoryGame){
     let tempCovers = [];
     let tempCards = [];
     if(memoryGame.getLevel()==memoryGame.getLevelMax()){
-        alert("Juego Completado!")
+        clearInterval(chronometer);
         bar.style.display = 'none';
+        endMessage.style.display='inline-block';
         memoryGame.resetGame();
-        start.style.display = 'inline-block';
-        test.style.display='none';
+        memoryGame.nextLevel();
         errors = 0;
         totalErrors.innerText=``;
         s = 0;
         m = 0;
         h = 0;
-        startGame();
+        playAgain.onclick = () => {
+            watch.innerText= `Time: 00:00:00`;
+            chronometer = setInterval(stopwatch,1000);
+            bar.style.display = 'flex'
+            bar.appendChild(totalErrors);
+            test.style.display='inline-block';
+            endMessage.style.display='none';
+            memoryGame.nextLevel();
+            game(memoryGame);
+        }
     }
     else{
         for (let index = 0; index < covers.length; index++) {
@@ -155,11 +168,12 @@ function stopwatch(){
 function startGame(){
     test.style.display='none';
     const memoryGame = dealCards(board);
-    start.onclick = () => {
+    start.onclick = ()=>{
+        chronometer = setInterval(stopwatch,1000);
         bar.style.display = 'flex'
-        setInterval(stopwatch,1000);
         bar.appendChild(totalErrors);
         start.style.display = 'none';
+        img.style.display = 'none';
         test.style.display='inline-block';
         memoryGame.nextLevel();
         game(memoryGame);
@@ -171,5 +185,4 @@ function startGame(){
         game(memoryGame);
     }
 }
-
 startGame();

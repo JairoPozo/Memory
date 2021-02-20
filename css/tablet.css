@@ -6,3 +6,7 @@
 .game{
     max-width: 520px;
 }
+
+.game-img{
+    width: 70%;
+}
